@@ -1,0 +1,1 @@
+Global Game Jam 2025 (Globant site) Project, the game name is Bubble Lobby and is a satiric game developed in unity that your objective is to make te economic bubble explode with the most high market value posble

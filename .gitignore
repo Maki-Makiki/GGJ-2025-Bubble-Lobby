@@ -6,6 +6,7 @@
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
+/[Cc]ompiled/
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
@@ -70,3 +71,11 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Sprites/Level Assets/18 de julio/calles y veredas/calle_parche_b.png.meta
+Assets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db
+Assets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db
+/Assets/Unity.VisualScripting.Generated
+/Assets/Unity.VisualScripting.Generated
+Assets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db
+
+Assets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db
