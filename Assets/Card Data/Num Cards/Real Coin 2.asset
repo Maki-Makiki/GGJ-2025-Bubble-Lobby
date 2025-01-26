@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cbb51f31a3fbd149bd43c5f063b68e3, type: 3}
+  m_Name: Real Coin 2
+  m_EditorClassIdentifier: 
+  CardID: Real Coin 2
+  displayName: Real Coin 2
+  description: Porque si tienes dinero porque no tratar de sobornar a la mismisima
+    muerte!
+  cardType: 0
+  card_Subtypes: []
+  card_Effects:
+  - {fileID: 11400000, guid: 4fba2237a7b05e54b93038eaeb81e7ee, type: 2}
+  card_InstantEffects: []
+  card_Image: {fileID: 2800000, guid: beccf3d236057bb499d2b7b54fb82f1f, type: 3}

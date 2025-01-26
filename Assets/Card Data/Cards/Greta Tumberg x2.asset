@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Greta Tumberg
   description: "Greta es detenida por bloquear el tr\xE1fico protestando en contra
     de las subvenciones a las energ\xEDas f\xF3siles."
-  cardType: 0
+  cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: b44db72b5b9d6ee4a92cca8e95af8d6d, type: 2}
   - {fileID: 11400000, guid: c3dde1452d060f44993f6ac68ff370f6, type: 2}

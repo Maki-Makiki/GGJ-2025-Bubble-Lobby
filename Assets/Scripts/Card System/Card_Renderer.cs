@@ -14,8 +14,6 @@ public class Card_Renderer : MonoBehaviour
     [Space(20f)]
     public Vector3 original_pos;
 
-    [Space(20f)]
-    public bool m_isAxisInUse = false;
 
     [Space(20f)]
     public GameObject card_s_content;
@@ -56,33 +54,13 @@ public class Card_Renderer : MonoBehaviour
         AnimarHover();
         AnimarSelected();
 
-        CheckMouseButton();
     }
 
-    private void CheckMouseButton()
-    {
-        if (bool_s)
-        {
-            if (Input.GetAxisRaw("Fire1") != 0)
-            {
-                if (m_isAxisInUse == false)
-                {
-                    // Call your event function here.
-                    m_isAxisInUse = true;
-                    CheckActivable();
-                }
-            }
-            if (Input.GetAxisRaw("Fire1") == 0)
-            {
-                m_isAxisInUse = false;
-            }
-        }
-        
-    }
+    
 
-    private void CheckActivable()
+    public void CheckActivable()
     {
-        Game_System.instance.deck.SelectCardHand(CardToRender);
+        Game_System.instance.deck.SelectCardHand(CardToRender, this);
         //bool_a = !bool_a;
     }
 
@@ -178,12 +156,25 @@ public class Card_Renderer : MonoBehaviour
     public void update_card_renderer()
     {
         card_renderer.material.SetTexture("_Carta", CardToRender.card_Image);
+        card_border_renderer.enabled = CardToRender.cardType == CardType.quick_effect;
     }
 
-    internal void Select(bool v)
+    public void Select(bool v)
     {
         //Debug.Log(" Select(" + v + ")");
         card_select_effect_renderer.enabled = v;
         bool_s = v;
+        if(v == false)
+        {
+            if(Game_System.instance.hand.hoveredCardRenderer == this)
+            {
+                Game_System.instance.hand.hoveredCardRenderer = null;
+            }
+        }
+        else
+        {
+            Game_System.instance.hand.hoveredCardRenderer = this;
+        }
+       
     }
 }

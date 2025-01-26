@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cbb51f31a3fbd149bd43c5f063b68e3, type: 3}
   m_Name: Oil Coin 3
   m_EditorClassIdentifier: 
-  displayName: Oil Coin 1
-  description: "Un gal\xF3n de petroleo"
+  CardID: Oil Coin 3
+  displayName: Oil Coin 3
+  description: Chimenea petrolera
   cardType: 0
   card_Subtypes: []
   card_Effects:

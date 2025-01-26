@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Oil_Coin_3
   m_EditorClassIdentifier: 
   displayName: Oil Coin 3
-  description: "Un gal\xF3n de petroleo"
-  MultyValue: 
+  description: Oil Coin x3
+  MultyValue: 03000000
   AfectedNumbers: 
-  AfectedCoins: []
+  AfectedCoins:
+  - {fileID: 11400000, guid: 49b87deb7ee785f44be18316dfdee6f5, type: 2}
   icon: {fileID: 21300000, guid: b39a33915a760164d9e427bf1db805f3, type: 3}

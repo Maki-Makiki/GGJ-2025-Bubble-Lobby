@@ -15,6 +15,11 @@ public class card_data : ScriptableObject
     public List<card_instant_effect> card_InstantEffects;
 
     public Texture2D card_Image;
+
+    public string Get_HelpText()
+    {
+        return description;
+    }
 }
 
 public enum CardType

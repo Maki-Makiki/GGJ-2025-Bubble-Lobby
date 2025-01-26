@@ -6,8 +6,10 @@ using UnityEngine;
 public class Hand_System : MonoBehaviour
 {
     public List<GameObject> Cartas;
+
     public float distanciaMano = 0f;
     public float distanciaEntreCartas = 0f;
+
     public GameObject StartHandPosition;
     public GameObject EndHandPosition;
     public GameObject base_card_prefab;
@@ -15,13 +17,51 @@ public class Hand_System : MonoBehaviour
     public Vector3 cardSpawnAnlge;
     public Vector3 cardExtraPosition;
 
+    [Space(20f)]
+    public bool m_isAxisInUse = false;
+    public Card_Renderer hoveredCardRenderer;
+
     private void Start()
     {
         Game_System.SetSingletone(this);
     }
 
+    private void Update()
+    {
+        CheckMouseButton();
+    }
+
     public void instanciarCartas()
     {
+
+    }
+
+    private void CheckMouseButton()
+    {
+        //if (bool_s)
+        //{
+            if (Input.GetAxisRaw("Fire1") != 0)
+            {
+                if (m_isAxisInUse == false)
+                {
+                    // Call your event function here.
+                    m_isAxisInUse = true;
+                    if (hoveredCardRenderer != null)
+                    {
+                        if (hoveredCardRenderer.CardToRender != null)
+                        {
+                            hoveredCardRenderer.CheckActivable();
+                        }
+                    }
+                        
+                    
+                }
+            }
+            if (Input.GetAxisRaw("Fire1") == 0)
+            {
+                m_isAxisInUse = false;
+            }
+        //}
 
     }
 
@@ -41,7 +81,7 @@ public class Hand_System : MonoBehaviour
         CalcularDistancias();
 
         //austo las cartas
-        AjustarPosicinCartas();
+        AjustCardPos();
     }
 
     public void CalcularDistancias()
@@ -51,7 +91,7 @@ public class Hand_System : MonoBehaviour
         distanciaMano = Vector3.Distance(StartHandPosition.transform.position, EndHandPosition.transform.position);
         distanciaEntreCartas = distanciaMano / (Cartas.Count + 1);
     }
-    public void AjustarPosicinCartas()
+    public void AjustCardPos()
     {
         //Debug.Log("Ajusto posiciones cartas");
 
@@ -66,14 +106,14 @@ public class Hand_System : MonoBehaviour
         }
     }
 
-    public void ActivarCarta(card_data card_Data, int number)
+    public void ActivarCarta(bool activar, card_data card_Data, int number)
     {
         for (int i = 0; i < Cartas.Count; i++)
         {
             Card_Renderer i_cardRenderer = Cartas[i].GetComponent<Card_Renderer>();
             if(i_cardRenderer.CardToRender == card_Data)
             {
-                i_cardRenderer.ActivateCard(true, number);
+                i_cardRenderer.ActivateCard(activar, number);
                 break;
             }
         }
