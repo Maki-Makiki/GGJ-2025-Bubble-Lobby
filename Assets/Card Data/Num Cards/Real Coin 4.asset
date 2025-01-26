@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cbb51f31a3fbd149bd43c5f063b68e3, type: 3}
+  m_Name: Real Coin 4
+  m_EditorClassIdentifier: 
+  CardID: Real Coin 4
+  displayName: Real Coin 4
+  description: Aque que saque la espada sera millonario, siempre y cuando logre evadir
+    los impuestos!
+  cardType: 0
+  card_Subtypes: []
+  card_Effects:
+  - {fileID: 11400000, guid: b915f15dd776a68408bfe16dc41ad56f, type: 2}
+  card_InstantEffects: []
+  card_Image: {fileID: 2800000, guid: c2336c600cbddc64ea3b89c122a24b25, type: 3}
