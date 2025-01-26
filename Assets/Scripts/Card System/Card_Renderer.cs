@@ -12,6 +12,10 @@ public class Card_Renderer : MonoBehaviour
     public Renderer card_select_effect_renderer;
 
     [Space(20f)]
+    public GameObject card_number_container;
+    public TMP_Text card_number_text;
+
+    [Space(20f)]
     public Vector3 original_pos;
 
 
@@ -157,6 +161,16 @@ public class Card_Renderer : MonoBehaviour
     {
         card_renderer.material.SetTexture("_Carta", CardToRender.card_Image);
         card_border_renderer.enabled = CardToRender.cardType == CardType.quick_effect;
+
+        if (CardToRender.cardType == CardType.number)
+        {
+            card_number_container.SetActive(true);
+            card_number_text.text = CardToRender.card_Effects[0].MultyValue[0].ToString();
+        }
+        else
+        {
+            card_number_container.SetActive(false);
+        }
     }
 
     public void Select(bool v)
@@ -166,15 +180,21 @@ public class Card_Renderer : MonoBehaviour
         bool_s = v;
         if(v == false)
         {
-            if(Game_System.instance.hand.hoveredCardRenderer == this)
+            Game_System.instance.help.HideHelpNow();
+            if (Game_System.instance.hand.hoveredCardRenderer == this)
             {
                 Game_System.instance.hand.hoveredCardRenderer = null;
             }
         }
         else
         {
+            Game_System.instance.help.ShowHelpNow(CardToRender, this);
             Game_System.instance.hand.hoveredCardRenderer = this;
         }
-       
+
+        Game_System.PlaySound(soundNames.sfx_card_hover);
+
+
+        
     }
 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Multiplica x2 (Real)
   description: Real Coins x2
   MultyValue: 02000000
-  AfectedNumbers: 
+  AfectedNumbers: ffffffff
   AfectedCoins:
   - {fileID: 11400000, guid: 5e078053fcd4db344a2897b92e92509b, type: 2}
   icon: {fileID: 0}

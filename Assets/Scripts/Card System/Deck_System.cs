@@ -2,10 +2,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class Deck_System : MonoBehaviour
 {
+    public int Puntuacion = 0;
+
+    public int actualNumeredCards = 0;
+    public int MaxNumeredCards = 3;
+
+    public int actualEfectCards = 0;
+    public int MaxEfectCards = 2;
+
+    public int HandTargetCards = 8;
+
+    public float Turn_Timer = 0;
+    public float Turn_TimeForAction = 1f;
+    public GameObject PrefabTextoTurn;
+    public GameObject SpawnPosition;
+
+    public bool canPlay = true;
+
     [Tooltip("cartas que se pueden robar")]
     public List<card_data> deck_cards;
 
@@ -32,7 +50,7 @@ public class Deck_System : MonoBehaviour
             {
                 case CardType.quick_effect:
                     Debug.Log("Carta quick effect activada");
-
+                    Game_System.PlaySound(soundNames.sfx_card_quick);
                     ActivateQuickEffect(card_Data, card_Renderer);
 
                     break;
@@ -41,19 +59,13 @@ public class Deck_System : MonoBehaviour
                     Debug.Log("Carta effect seleccionada");
                     if (selected_cards.Count == 0)
                     {
-                        Debug.Log("Error = para seleccionar un efecto tienes que seleccionar numeros antes");
+                        //Debug.Log("Error = para seleccionar un efecto tienes que seleccionar numeros antes");
+                        ErrorSound("para seleccionar un efecto tienes que seleccionar numeros antes");
                         break;
                     }
                     else
                     {
-                        if (selected_cards.Last().cardType == CardType.number)
-                        {
-                            ActivarSeleccion(card_Data);
-                        }
-                        else
-                        {
-                            Debug.Log("Error = para seleccionar un efecto tienes que seleccionar numeros antes");
-                        }
+                        ActivarSeleccion(card_Data);
                         
                     }
                     break;
@@ -88,13 +100,23 @@ public class Deck_System : MonoBehaviour
                             {
                                 if (MismoTipoCoin)
                                 {
-                                    Debug.Log("Esta carta es del mismo tipo de coin que la anterior");
+                                    //Debug.Log("Esta carta es del mismo tipo de coin que la anterior");
 
                                     if (Consecutivas)
                                     {
-                                        Debug.Log(lastCard.name + " es consecutivo de " + card_Data.name);
+                                        //Debug.Log(lastCard.name + " es consecutivo de " + card_Data.name);
                                         ActivarSeleccion(card_Data);
                                     }
+                                    else
+                                    {
+                                        //Debug.Log("tienen que ser consecutivas");
+                                        ErrorSound("Los números no son consecutivos y del mismo tipo");
+                                    }
+
+                                }
+                                else
+                                {
+                                    ErrorSound("Los números no son consecutivos y del mismo tipo ni igual número");
                                 }
                             }
 
@@ -102,7 +124,8 @@ public class Deck_System : MonoBehaviour
                         }
                         else
                         {
-                            Debug.Log("Error = Como mierda hiciste para seleccionar un numero luego de algo que no es un numero!!!");
+                            ErrorSound("No se puede seleccionar numeros luego de seleccionar Cartas de Efecto");
+                            //Debug.Log("Error = Como mierda hiciste para seleccionar un numero luego de algo que no es un numero!!!");
                         }
                     }
 
@@ -114,12 +137,13 @@ public class Deck_System : MonoBehaviour
         {
             if (selected_cards.Last() == card_Data)
             {
-                Debug.Log("se selecciono la ultima");
+                //Debug.Log("se selecciono la ultima");
                 UnselectCardHand(card_Data);
             }
             else
             {
-                Debug.Log("ERROR: Solo se puede des-seleccionar la ultima carta");
+                ErrorSound("Solo se puede des-seleccionar la ultima carta");
+                //Debug.Log("ERROR: Solo se puede des-seleccionar la ultima carta");
             }
         }
 
@@ -140,15 +164,52 @@ public class Deck_System : MonoBehaviour
 
     private void ActivarSeleccion(card_data card_Data)
     {
+        if(card_Data.cardType == CardType.number)
+        {
+            if (actualNumeredCards >= MaxNumeredCards)
+            {
+                ErrorSound("No se pueden marcar más de " + MaxNumeredCards + " Cartas numeradas");
+                return;
+            }
+            else
+            {
+                actualNumeredCards++;
+            }
+        }
+
+        if (card_Data.cardType == CardType.effect)
+        {
+            if (actualEfectCards >= MaxEfectCards)
+            {
+                ErrorSound("No se pueden marcar más de " + MaxEfectCards + " Cartas de efecto");
+                return;
+            }
+            else
+            {
+                actualEfectCards++;
+            }
+        }
+
         selected_cards.Add(card_Data);
         Game_System.instance.hand.ActivarCarta(true, card_Data, selected_cards.Count);
+        Game_System.PlaySound(soundNames.sfx_card_select);
     }
-
 
     internal void UnselectCardHand(card_data card_Data)
     {
+        if (card_Data.cardType == CardType.number)
+        {
+                actualNumeredCards--;
+        }
+
+        if (card_Data.cardType == CardType.effect)
+        {
+                actualEfectCards--;
+        }
+
         selected_cards.Remove(card_Data);
         Game_System.instance.hand.ActivarCarta(false, card_Data, selected_cards.Count);
+        Game_System.PlaySound(soundNames.sfx_card_select);
     }
 
     private void Start()
@@ -156,5 +217,136 @@ public class Deck_System : MonoBehaviour
         Game_System.SetSingletone(this);
     }
 
+    public void ErrorSound(string errorLog)
+    {
+        Debug.Log("Jugada Invalida" + errorLog);
+        Game_System.PlaySound(soundNames.sfx_card_error);
+    }
 
+    public void Update()
+    {
+        
+    }
+
+    IEnumerator ExecuteTurn()
+    {
+        canPlay = false;
+        List<card_data> ListaNum = listaDeCartasTypo(selected_cards, CardType.number);
+        List<card_data> ListaEff = listaDeCartasTypo(selected_cards, CardType.effect);
+
+        List<List<Card_Renderer>> listaDeCombos = new List<List<Card_Renderer>>();
+
+        for (int i = 0; i < ListaNum.Count; i++)
+        {
+            List<int> Calculos = new List<int>();
+            Coin ListNumCoinType = ListaNum[i].Get_cardNumberCoinType();
+            int ListNumValue = ListaNum[i].Get_cardNumber();
+
+            //List<Card_Renderer> cartas = new List<Card_Renderer>();
+            //cartas.Add(ListaNum.)
+
+            for (int j = 0; j < ListaEff.Count; j++)
+            {
+                Calculos.Add(ListaEff[j].Get_Multy_For_Number(ListNumValue, ListNumCoinType));
+                
+                //listaDeCombos.Add(cartas);
+            }
+
+            int restult = ListNumValue;
+            string message = ListNumValue + " " + ListNumCoinType.displayName + " Coin ";
+
+            for (int k = 0; k < Calculos.Count; k++)
+            {
+                restult *= Calculos[k];
+                message = message + " x " + Calculos[k];
+            }
+
+            if (Calculos.Count < 1)
+            {
+                message = ListNumValue + " " + ListNumCoinType.displayName + " Coin " + " = " + ListNumValue;
+                Puntuacion = ListNumValue;
+                ShowMessageTurn(message);
+            }
+            else
+            {
+                message = message + " = " + restult;
+                Puntuacion = restult;
+                ShowMessageTurn(message);
+            }
+
+            yield return new WaitForSeconds(2);
+        }
+
+        canPlay = true;
+
+    }
+
+    public void IniciarTurno()
+    {
+        StartCoroutine(ExecuteTurn());
+    }
+
+    public void JugarMano()
+    {
+        
+        List<card_data> ListaNum = listaDeCartasTypo(selected_cards, CardType.number);
+        List<card_data> ListaEff = listaDeCartasTypo(selected_cards, CardType.effect);
+
+        for (int i = 0; i < ListaNum.Count; i++)
+        {
+            List<int> Calculos = new List<int>();
+            Coin ListNumCoinType = ListaNum[i].Get_cardNumberCoinType();
+            int ListNumValue = ListaNum[i].Get_cardNumber();
+
+            for (int j = 0; j < ListaEff.Count; j++)
+            {
+                Calculos.Add(ListaEff[j].Get_Multy_For_Number(ListNumValue, ListNumCoinType));
+            }
+
+            int restult = ListNumValue;
+            string message = ListNumValue + " " + ListNumCoinType.displayName + " Coin "; 
+
+            for (int k= 0; k < Calculos.Count; k++)
+            {
+                restult *= Calculos[k];
+                message = message + " x " + Calculos[k];
+            }
+
+            if(Calculos.Count < 1)
+            {
+                message = ListNumValue + " " + ListNumCoinType.displayName + " Coin " + " = " + ListNumValue;
+                Puntuacion = ListNumValue;
+                ShowMessageTurn(message);
+            }
+            else
+            {
+                message = message + " = " + restult;
+                Puntuacion = restult;
+                ShowMessageTurn(message);
+            }
+           
+        }
+    }
+
+    public List<card_data> listaDeCartasTypo(List<card_data> cards, CardType cardtype)
+    {
+        List<card_data> listaResultado = new List<card_data>();
+
+        for (int i = 0;i < cards.Count; i++)
+        {
+            if (cards[i].cardType == cardtype)
+            {
+                listaResultado.Add(cards[i]);
+            }
+        }
+
+        return listaResultado;
+    }
+
+    public void ShowMessageTurn(string message)
+    {
+        Debug.Log(message);
+        GameObject newMessage = Instantiate(PrefabTextoTurn, SpawnPosition.transform.position, Quaternion.identity);
+        newMessage.GetComponent<Sow_Message>().showTextAnim(message);
+    }
 }

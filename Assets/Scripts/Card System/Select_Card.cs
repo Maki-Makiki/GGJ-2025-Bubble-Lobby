@@ -9,11 +9,13 @@ public class Select_Card : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        card_Renderer.Select(true);
+        if(Game_System.instance.deck.canPlay)
+            card_Renderer.Select(true);
     }
 
     private void OnMouseExit()
     {
-        card_Renderer.Select(false);
+        if (Game_System.instance.deck.canPlay)
+            card_Renderer.Select(false);
     }
 }

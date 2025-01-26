@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Multiplica x2 (Todos los Coins)
   description: Todos los Coins x2
   MultyValue: 02000000020000000200000002000000
-  AfectedNumbers: 
+  AfectedNumbers: ffffffffffffffffffffffffffffffff
   AfectedCoins:
   - {fileID: 11400000, guid: cb7824a6356b3df47ae58d9f5b5dedbc, type: 2}
   - {fileID: 11400000, guid: 49b87deb7ee785f44be18316dfdee6f5, type: 2}

@@ -40,6 +40,8 @@ public class Hand_System : MonoBehaviour
     {
         //if (bool_s)
         //{
+        if(Game_System.instance.deck.canPlay)
+        {
             if (Input.GetAxisRaw("Fire1") != 0)
             {
                 if (m_isAxisInUse == false)
@@ -53,22 +55,29 @@ public class Hand_System : MonoBehaviour
                             hoveredCardRenderer.CheckActivable();
                         }
                     }
-                        
-                    
+
+
                 }
             }
             if (Input.GetAxisRaw("Fire1") == 0)
             {
                 m_isAxisInUse = false;
             }
-        //}
+            //}
+        }
+
 
     }
 
     public void instanciarCarta(card_data card_Data)
     {
         //creo la instancia
-        GameObject newCard = Instantiate(base_card_prefab, StartHandPosition.transform.position + cardExtraPosition, Quaternion.Euler(cardSpawnAnlge), this.transform);
+        GameObject newCard = Instantiate(
+            base_card_prefab, 
+            StartHandPosition.transform.position + cardExtraPosition, 
+            Quaternion.Euler(cardSpawnAnlge), 
+            this.transform);
+
         Cartas.Add(newCard);
 
         //obtengo el renderer y lo configuro
