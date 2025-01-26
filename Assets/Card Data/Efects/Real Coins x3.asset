@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b98601e44557f48a22d42314c5e034, type: 3}
+  m_Name: Real Coins x3
+  m_EditorClassIdentifier: 
+  displayName: Real Coins x3
+  description: Real Coins x3
+  MultyValue: 03000000
+  AfectedNumbers: ffffffff
+  AfectedCoins:
+  - {fileID: 11400000, guid: 5e078053fcd4db344a2897b92e92509b, type: 2}
+  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Eco Coin 2
   displayName: Eco Coin 2
-  description: "Reserva para pajaros en peligro de extinsi\xF3n"
+  description: "Reserva para pajaros en peligro de extinci\xF3n."
   cardType: 0
   card_Subtypes: []
   card_Effects:

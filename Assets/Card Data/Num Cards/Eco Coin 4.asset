@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Eco Coin 4
   displayName: Eco Coin 4
-  description: Reerva natural, hay que proteger las plantas tambien.
+  description: Reserva natural, hay que proteger las plantas tambien.
   cardType: 0
   card_Subtypes: []
   card_Effects:

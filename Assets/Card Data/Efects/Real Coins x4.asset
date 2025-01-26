@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1b98601e44557f48a22d42314c5e034, type: 3}
-  m_Name: Multiplica x2 (Real)
+  m_Name: Real Coins x4
   m_EditorClassIdentifier: 
-  displayName: Multiplica x2 (Real)
-  description: Real Coins x2
-  MultyValue: 02000000
+  displayName: Real Coins x4
+  description: Real Coins x4
+  MultyValue: 04000000
   AfectedNumbers: ffffffff
   AfectedCoins:
   - {fileID: 11400000, guid: 5e078053fcd4db344a2897b92e92509b, type: 2}
-  icon: {fileID: 0}
+  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

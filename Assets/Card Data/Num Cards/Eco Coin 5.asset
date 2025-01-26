@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Eco Coin 5
   displayName: Eco Coin 5
-  description: "Energias renovables porque otra forma de salvar el medio ambiente
+  description: "Energ\xEDas renovables, porque otra forma de salvar el medio ambiente
     es no da\xF1arlo en primer lugar."
   cardType: 0
   card_Subtypes: []

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cbb51f31a3fbd149bd43c5f063b68e3, type: 3}
+  m_Name: Taylor Swift x3
+  m_EditorClassIdentifier: 
+  CardID: Taylor Swift x3
+  displayName: 'Taylor Swift '
+  description: "Taylor Swift y su The Eras Tour hacen crecer la enconom\xEDa local
+    e internacional."
+  cardType: 1
+  card_Subtypes:
+  - {fileID: 11400000, guid: 634db67a434b2a641805e77c83ab3d40, type: 2}
+  - {fileID: 11400000, guid: e2db7aa6f3b484d4d8ed3a54492dbfd8, type: 2}
+  - {fileID: 11400000, guid: c3dde1452d060f44993f6ac68ff370f6, type: 2}
+  card_Effects:
+  - {fileID: 11400000, guid: 976bf89f3cc151b49b43066eec751865, type: 2}
+  card_InstantEffects: []
+  card_Image: {fileID: 2800000, guid: 651d49de3c2b17448a07e48bee338c84, type: 3}

@@ -203,6 +203,8 @@ public class Deck_System : MonoBehaviour
 
         Game_System.instance.hand.CalcularDistancias();
         Game_System.instance.hand.AjustCardPos();
+
+        AvanzarTurno();
     }
 
     private void ActivateQuickEffect(card_data card_Data, Card_Renderer card_Renderer)

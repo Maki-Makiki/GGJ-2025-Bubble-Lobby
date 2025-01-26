@@ -16,11 +16,12 @@ MonoBehaviour:
   displayName: Huan
   description: "Jen-Hsun Huang utiliza su 'Optimizaci\xF3n GPU' para descartar una
     carta de tu elecci\xF3n y procesar dos nuevas del mazo a la velocidad de la luz."
-  cardType: 2
+  cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: 6f1c4615346ff8841b1ea49d543811c8, type: 2}
   - {fileID: 11400000, guid: 162525e4a75f1a1449f9e1d292a4e86a, type: 2}
-  card_Effects: []
+  card_Effects:
+  - {fileID: 11400000, guid: 3d666fcff99c60b45bbfb09a8a57784b, type: 2}
   card_InstantEffects:
   - {fileID: 0}
   card_Image: {fileID: 2800000, guid: 8f0fa33af7fb5854e9d4d6b90a6b8d59, type: 3}

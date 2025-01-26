@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Oil Coin 1
   displayName: Oil Coin 1
-  description: "1 gal\xF3n de petroleo"
+  description: "1 gal\xF3n de petroleo."
   cardType: 0
   card_Subtypes: []
   card_Effects:
