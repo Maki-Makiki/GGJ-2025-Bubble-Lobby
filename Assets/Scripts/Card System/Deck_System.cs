@@ -2,11 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 public class Deck_System : MonoBehaviour
 {
+    public string textoBase = "<size=80%>(faltan [faltan] años para que explote la burbuja)<size=100%> \r\n<b> Año [anio] </b>";
+    public TMP_Text textoAnio;
+    public int turno = 1994;
+    public int turnos = 11;
+
     public int Puntuacion = 0;
 
     public int actualNumeredCards = 0;
@@ -35,6 +43,33 @@ public class Deck_System : MonoBehaviour
 
     [Tooltip("cartas que se tienen seleccionadas")]
     public List<card_data> selected_cards;
+
+    public void RobarCartas()
+    {
+        int cartasQueFaltan = HandTargetCards - hand_cards.Count;
+
+        for (int i = 0; i < cartasQueFaltan; i++)
+        {
+            card_data nuevaCartaRobada = deck_cards.Last();
+            hand_cards.Add(nuevaCartaRobada);
+            deck_cards.RemoveAt(deck_cards.Count-1);
+        }
+
+        Game_System.instance.hand.ResetearCartas3D();
+        Game_System.instance.hand.ReinstanciarCartas();
+
+        Game_System.instance.hand.CalcularDistancias();
+        Game_System.instance.hand.AjustCardPos();
+    }
+
+    public void AvanzarTurno()
+    {
+        turnos -= 1;
+        turno += 1;
+        textoBase = textoBase.Replace("[anio]", turno.ToString());
+        textoBase = textoBase.Replace("[faltan] ", turnos.ToString());
+        textoAnio.text = textoBase;
+    }
 
     internal void AgregarCartaMano(card_data card_Data)
     {
@@ -149,6 +184,27 @@ public class Deck_System : MonoBehaviour
 
     }
 
+    public void DestroyCardsSelected()
+    {
+        actualNumeredCards = 0;
+        actualEfectCards = 0;
+        Game_System.instance.hand.desactivarTodasLasCartas();
+
+        foreach (var card in selected_cards) 
+        {
+            Game_System.instance.deck.used_deck_cards.Add(card);
+            Game_System.instance.deck.hand_cards.Remove(card);
+        }
+
+        selected_cards = new List<card_data>();
+
+        Game_System.instance.hand.ResetearCartas3D();
+        Game_System.instance.hand.ReinstanciarCartas();
+
+        Game_System.instance.hand.CalcularDistancias();
+        Game_System.instance.hand.AjustCardPos();
+    }
+
     private void ActivateQuickEffect(card_data card_Data, Card_Renderer card_Renderer)
     {
 
@@ -215,6 +271,10 @@ public class Deck_System : MonoBehaviour
     private void Start()
     {
         Game_System.SetSingletone(this);
+
+        deck_cards.Shuffle();
+        AvanzarTurno();
+        RobarCartas();
     }
 
     public void ErrorSound(string errorLog)
@@ -227,6 +287,14 @@ public class Deck_System : MonoBehaviour
     {
         
     }
+
+    public void RobarUnaCarta()
+    {
+        card_data cartaDelMazo = deck_cards.Last();
+        deck_cards.Remove(cartaDelMazo);
+        Game_System.instance.hand.instanciarCarta(cartaDelMazo);
+    }
+
 
     IEnumerator ExecuteTurn()
     {
@@ -277,6 +345,7 @@ public class Deck_System : MonoBehaviour
             yield return new WaitForSeconds(2);
         }
 
+        DestroyCardsSelected();
         canPlay = true;
 
     }
@@ -343,10 +412,33 @@ public class Deck_System : MonoBehaviour
         return listaResultado;
     }
 
+    public void BarajarMazo()
+    {
+        deck_cards.Shuffle();
+    }
+
     public void ShowMessageTurn(string message)
     {
         Debug.Log(message);
         GameObject newMessage = Instantiate(PrefabTextoTurn, SpawnPosition.transform.position, Quaternion.identity);
         newMessage.GetComponent<Sow_Message>().showTextAnim(message);
+    }
+}
+public static class IListExtensions
+{
+    /// <summary>
+    /// Shuffles the element order of the specified list.
+    /// </summary>
+    public static void Shuffle<T>(this IList<T> ts)
+    {
+        var count = ts.Count;
+        var last = count - 1;
+        for (var i = 0; i < last; ++i)
+        {
+            var r = UnityEngine.Random.Range(i, count);
+            var tmp = ts[i];
+            ts[i] = ts[r];
+            ts[r] = tmp;
+        }
     }
 }

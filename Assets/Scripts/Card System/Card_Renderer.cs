@@ -61,6 +61,10 @@ public class Card_Renderer : MonoBehaviour
     }
 
     
+    //public void DestroyCard(card_data card)
+    //{
+    //    for (int i = 0;
+    //}
 
     public void CheckActivable()
     {
