@@ -3,7 +3,22 @@ guid: ef95e81ef1632ae40b847df024b3af07
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LaBurbujaNews
+    second: {fileID: 2100000, guid: 929235f194a064f4ba6ff38e8355722d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 5f5c9067c3644d0479fd646826e8c97c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: case
+    second: {fileID: 2100000, guid: 6a5d028e32473314cbda0fe7bf08443d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -16,8 +31,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 

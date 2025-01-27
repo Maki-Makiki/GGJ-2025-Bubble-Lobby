@@ -7,7 +7,11 @@ using UnityEngine;
 
 public class Deck_System : MonoBehaviour
 {
-    public string textoBase = "<size=80%>(faltan [faltan] años para que explote la burbuja)<size=100%> \r\n<b> Año [anio] </b>";
+
+    public bool partidaIniciada = false;
+
+    public string textoBase = "<size=80%>(faltan [faltan] aï¿½os para que explote la burbuja)<size=100%> \r\n<b> Aï¿½o [anio] </b>";
+    public string textoAMostrar = "";
     public TMP_Text textoAnio;
     public int turno = 1994;
     public int turnos = 11;
@@ -41,6 +45,13 @@ public class Deck_System : MonoBehaviour
     [Tooltip("cartas que se tienen seleccionadas")]
     public List<card_data> selected_cards;
 
+    public TMP_Text textoCartasUsables;
+    public TMP_Text textoCartasUsablesSombra;
+
+
+    public TMP_Text textoPuntos;
+    public TMP_Text textoPuntosSombra;
+
     public void RobarCartas()
     {
         int cartasQueFaltan = HandTargetCards - hand_cards.Count;
@@ -61,11 +72,15 @@ public class Deck_System : MonoBehaviour
 
     public void AvanzarTurno()
     {
+        Debug.Log("AvanzarTurno()");
         turnos -= 1;
         turno += 1;
-        textoBase = textoBase.Replace("[anio]", turno.ToString());
-        textoBase = textoBase.Replace("[faltan] ", turnos.ToString());
-        textoAnio.text = textoBase;
+        textoAMostrar = textoBase;
+        textoAMostrar = textoAMostrar.Replace("[anio]", turno.ToString());
+        textoAMostrar = textoAMostrar.Replace("[faltan] ", turnos.ToString());
+        textoAnio.text = textoAMostrar;
+
+        ActualizarPantallaPuntos();
     }
 
     internal void AgregarCartaMano(card_data card_Data)
@@ -142,13 +157,13 @@ public class Deck_System : MonoBehaviour
                                     else
                                     {
                                         //Debug.Log("tienen que ser consecutivas");
-                                        ErrorSound("Los números no son consecutivos y del mismo tipo");
+                                        ErrorSound("Los nï¿½meros no son consecutivos y del mismo tipo");
                                     }
 
                                 }
                                 else
                                 {
-                                    ErrorSound("Los números no son consecutivos y del mismo tipo ni igual número");
+                                    ErrorSound("Los nï¿½meros no son consecutivos y del mismo tipo ni igual nï¿½mero");
                                 }
                             }
 
@@ -171,6 +186,7 @@ public class Deck_System : MonoBehaviour
             {
                 //Debug.Log("se selecciono la ultima");
                 UnselectCardHand(card_Data);
+
             }
             else
             {
@@ -183,6 +199,7 @@ public class Deck_System : MonoBehaviour
 
     public void DestroyCardsSelected()
     {
+        Debug.Log("DestroyCardsSelected()");
         actualNumeredCards = 0;
         actualEfectCards = 0;
         Game_System.instance.hand.desactivarTodasLasCartas();
@@ -223,7 +240,7 @@ public class Deck_System : MonoBehaviour
         {
             if (actualNumeredCards >= MaxNumeredCards)
             {
-                ErrorSound("No se pueden marcar más de " + MaxNumeredCards + " Cartas numeradas");
+                ErrorSound("No se pueden marcar mï¿½s de " + MaxNumeredCards + " Cartas numeradas");
                 return;
             }
             else
@@ -236,7 +253,7 @@ public class Deck_System : MonoBehaviour
         {
             if (actualEfectCards >= MaxEfectCards)
             {
-                ErrorSound("No se pueden marcar más de " + MaxEfectCards + " Cartas de efecto");
+                ErrorSound("No se pueden marcar mï¿½s de " + MaxEfectCards + " Cartas de efecto");
                 return;
             }
             else
@@ -245,9 +262,30 @@ public class Deck_System : MonoBehaviour
             }
         }
 
+
+        ActualizarPantallaCartasUsables();
         selected_cards.Add(card_Data);
         Game_System.instance.hand.ActivarCarta(true, card_Data, selected_cards.Count);
         Game_System.PlaySound(soundNames.sfx_card_select);
+    }
+
+    public void ActualizarPantallaCartasUsables()
+    {
+        int cartasQueQuedanRecursos = (MaxNumeredCards - actualNumeredCards);
+        int cartasQueQuedanEfectos = (MaxEfectCards - actualEfectCards);
+        string textoBaseUsables = "<u>Cartas usables</u>\n\n Recursos: " + cartasQueQuedanRecursos + "\nEfecto: " + cartasQueQuedanEfectos;
+        textoCartasUsables.text = textoBaseUsables;
+        textoCartasUsablesSombra.text = textoBaseUsables;
+    }
+
+    public void ActualizarPantallaPuntos()
+    {
+        int cartasQueQuedanRecursos = (MaxNumeredCards - actualNumeredCards);
+        int cartasQueQuedanEfectos = (MaxEfectCards - actualEfectCards);
+        string textoBaseUsables = "<u>Dinero</u>\n $" + (Puntuacion*100) + "\nAÃ±o " + turno + "\n Explota en 2005";
+         
+        textoPuntos.text = textoBaseUsables;
+        textoPuntosSombra.text = textoBaseUsables;
     }
 
     internal void UnselectCardHand(card_data card_Data)
@@ -262,6 +300,7 @@ public class Deck_System : MonoBehaviour
                 actualEfectCards--;
         }
 
+        ActualizarPantallaCartasUsables();
         selected_cards.Remove(card_Data);
         Game_System.instance.hand.ActivarCarta(false, card_Data, selected_cards.Count);
         Game_System.PlaySound(soundNames.sfx_card_select);
@@ -271,9 +310,18 @@ public class Deck_System : MonoBehaviour
     {
         Game_System.SetSingletone(this);
 
-        deck_cards.Shuffle();
-        AvanzarTurno();
-        RobarCartas();
+
+    }
+
+    public void IniciarPartida()
+    {
+        if (partidaIniciada == false)
+        {
+            partidaIniciada = true;
+            deck_cards.Shuffle();
+            AvanzarTurno();
+            RobarCartas();
+        }
     }
 
     public void ErrorSound(string errorLog)
@@ -338,6 +386,7 @@ public class Deck_System : MonoBehaviour
             {
                 message = message + " = " + restult;
                 Puntuacion = restult;
+                ActualizarPantallaPuntos();
                 ShowMessageTurn(message);
             }
 
@@ -346,6 +395,7 @@ public class Deck_System : MonoBehaviour
 
         DestroyCardsSelected();
         canPlay = true;
+        RobarCartas();
 
     }
 

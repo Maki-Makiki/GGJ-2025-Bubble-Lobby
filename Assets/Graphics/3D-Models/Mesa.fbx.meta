@@ -3,7 +3,17 @@ guid: 986922c6c5528c4468a5dbcfc187f5c5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spruce wood
+    second: {fileID: 2100000, guid: c79497c5dddbda1439d814819405d708, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood.001
+    second: {fileID: 2100000, guid: f0669993acaca8f40892486f3fb4e2de, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -16,8 +26,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
