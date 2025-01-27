@@ -256,11 +256,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99cd47e4a298e2f4e8d6306c345ea63b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deck: {fileID: 0}
-  cards: {fileID: 0}
-  hand: {fileID: 0}
-  sound: {fileID: 0}
-  help: {fileID: 0}
+  deck: {fileID: 1189232387}
+  cards: {fileID: 1454385584}
+  hand: {fileID: 979404964}
+  sound: {fileID: 743170246}
+  help: {fileID: 322406714}
 --- !u!4 &211558385
 Transform:
   m_ObjectHideFlags: 0
