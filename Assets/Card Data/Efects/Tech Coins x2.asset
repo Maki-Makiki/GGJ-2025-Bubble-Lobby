@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Tech Coins x2
   description: Tech Coins x2
   MultyValue: 02000000
-  AfectedNumbers: 
+  AfectedNumbers: ffffffff
   AfectedCoins:
   - {fileID: 11400000, guid: e36819eeb1c60644897ac0cd233a665f, type: 2}
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

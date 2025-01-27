@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Oil Coin 5
   displayName: Oil Coin 5
-  description: Yasimiento Submarino de petroleo gigantesco
+  description: Yacimiento submarino de petroleo gigantesco.
   cardType: 0
   card_Subtypes: []
   card_Effects:

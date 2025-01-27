@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -40,6 +42,8 @@ public class Hand_System : MonoBehaviour
     {
         //if (bool_s)
         //{
+        if(Game_System.instance.deck.canPlay)
+        {
             if (Input.GetAxisRaw("Fire1") != 0)
             {
                 if (m_isAxisInUse == false)
@@ -53,22 +57,29 @@ public class Hand_System : MonoBehaviour
                             hoveredCardRenderer.CheckActivable();
                         }
                     }
-                        
-                    
+
+
                 }
             }
             if (Input.GetAxisRaw("Fire1") == 0)
             {
                 m_isAxisInUse = false;
             }
-        //}
+            //}
+        }
+
 
     }
 
     public void instanciarCarta(card_data card_Data)
     {
         //creo la instancia
-        GameObject newCard = Instantiate(base_card_prefab, StartHandPosition.transform.position + cardExtraPosition, Quaternion.Euler(cardSpawnAnlge), this.transform);
+        GameObject newCard = Instantiate(
+            base_card_prefab, 
+            StartHandPosition.transform.position + cardExtraPosition, 
+            Quaternion.Euler(cardSpawnAnlge), 
+            this.transform);
+
         Cartas.Add(newCard);
 
         //obtengo el renderer y lo configuro
@@ -117,5 +128,51 @@ public class Hand_System : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void desactivarTodasLasCartas()
+    {
+        for (int i = 0; i < Cartas.Count; i++)
+        {
+            Card_Renderer i_cardRenderer = Cartas[i].GetComponent<Card_Renderer>();
+            i_cardRenderer.ActivateCard(false, 0);
+        }
+    }
+
+    public void ResetearCartas3D()
+    {
+        foreach (var card in Cartas)
+        {
+            Destroy(card);
+        }
+
+        Cartas = new List<GameObject>();
+    }
+
+    public void ReinstanciarCartas()
+    {
+        foreach(var card_data_obj in Game_System.instance.deck.hand_cards)
+        {
+            //creo la instancia
+            GameObject newCard = Instantiate(
+                base_card_prefab,
+                StartHandPosition.transform.position + cardExtraPosition,
+                Quaternion.Euler(cardSpawnAnlge),
+                this.transform);
+
+            Cartas.Add(newCard);
+
+            //obtengo el renderer y lo configuro
+            Card_Renderer newCard_renderer = newCard.GetComponent<Card_Renderer>();
+            newCard_renderer.CardToRender = card_data_obj;
+            newCard_renderer.update_card_renderer();
+        }
+
+        //calculo distancia entre cartas
+        CalcularDistancias();
+
+        //austo las cartas
+        AjustCardPos();
+
     }
 }

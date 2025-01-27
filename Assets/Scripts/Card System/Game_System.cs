@@ -9,6 +9,8 @@ public class Game_System : MonoBehaviour
     public Deck_System deck;
     public Cards_System cards;
     public Hand_System hand;
+    public Sound_Player sound;
+    public Show_Help help;
 
     private void Start()
     {
@@ -43,9 +45,24 @@ public class Game_System : MonoBehaviour
                 if (instance.hand == null)
                     instance.hand = (Hand_System)mono;
                 return;
+
+            case "Sound_Player":
+                if (instance.sound == null)
+                    instance.sound = (Sound_Player)mono;
+                return;
+
+            case "Show_Help":
+                if (instance.help == null)
+                    instance.help = (Show_Help)mono;
+                return;
         }
 
         Destroy(mono);
 
+    }
+
+    public static void PlaySound(soundNames audioName)
+    {
+        instance.sound.PlayOneShot(audioName);
     }
 }

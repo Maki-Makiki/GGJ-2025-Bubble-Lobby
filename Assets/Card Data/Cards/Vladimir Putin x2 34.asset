@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cbb51f31a3fbd149bd43c5f063b68e3, type: 3}
+  m_Name: Vladimir Putin x2 34
+  m_EditorClassIdentifier: 
+  CardID: Vladimir Putin x3
+  displayName: Vladimir Putin
+  description: "Vladimir Putin ejecuta un estrategia energ\xE9tica, demostrando que
+    con el control adecuado de los recursos, \xA1el poder se amplifica!"
+  cardType: 1
+  card_Subtypes:
+  - {fileID: 11400000, guid: 6f1c4615346ff8841b1ea49d543811c8, type: 2}
+  - {fileID: 11400000, guid: 0499fe7f4b5a9a147b936ac7b84815e6, type: 2}
+  card_Effects:
+  - {fileID: 11400000, guid: e83f62d14ddd4ae4bb9e6ce3f6b5533f, type: 2}
+  card_InstantEffects: []
+  card_Image: {fileID: 2800000, guid: 0442c105fcc0ded4bb1181cd93df7a90, type: 3}

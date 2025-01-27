@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Real Coin 1
   displayName: Real Coin 1
-  description: Felicidades ganaste el peso de tu hija en oro...!
+  description: "\xA1Felicidades... zoquete! \xA1Acabas de ganarte el peso de tu hija
+    en oro...!"
   cardType: 0
   card_Subtypes: []
   card_Effects:

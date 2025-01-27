@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Tech Coins 5
   displayName: Tech Coins 5
-  description: NFT valuado en 1 Tech Coins (unos 105.049 USD)
+  description: NFT valuado en 1 Tech Coins (unos 105.049 USD).
   cardType: 0
   card_Subtypes: []
   card_Effects:
