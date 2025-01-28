@@ -52,17 +52,95 @@ public class Deck_System : MonoBehaviour
     public TMP_Text textoPuntos;
     public TMP_Text textoPuntosSombra;
 
+    public TMP_Text ErrorMesageScreen;
+    public TMP_Text ErrorMesageScreenSombra;
+
     public void RobarCartas()
     {
+
         int cartasQueFaltan = HandTargetCards - hand_cards.Count;
 
         for (int i = 0; i < cartasQueFaltan; i++)
         {
+            if(deck_cards.Count == 0)
+            {
+                RellenarMazoYBarajar();
+
+            }
+
             card_data nuevaCartaRobada = deck_cards.Last();
             hand_cards.Add(nuevaCartaRobada);
             deck_cards.RemoveAt(deck_cards.Count-1);
         }
 
+        ResetearYAjustarMano3D();
+        ComprobarSiLaManoEsValida();
+    }
+
+    public void RellenarMazoYBarajar()
+    {
+        for (int i = 0; i < used_deck_cards.Count; i++)
+        {
+            deck_cards.Add(used_deck_cards.Last());
+            used_deck_cards.Remove(used_deck_cards.Last());
+        }
+
+        BarajarMazo();
+    }
+
+    public void ComprobarSiLaManoEsValida()
+    {
+        int CartasEfecto = 0;
+        int CartasEfectoInstantaneo = 0;
+        int CartasRecursos = 0;
+
+        for (int i = 0; i < hand_cards.Count; i++)
+        {
+            if (hand_cards[i].cardType == CardType.effect)
+                CartasEfecto++;
+
+            if (hand_cards[i].cardType == CardType.quick_effect)
+                CartasEfectoInstantaneo++;
+
+            if (hand_cards[i].cardType == CardType.number)
+                CartasRecursos++;
+        }
+
+        if(CartasRecursos == 0)
+        {
+            ErrorMesageScreen.gameObject.SetActive(true);
+            ErrorMesageScreenSombra.gameObject.SetActive(true);
+            StartCoroutine(EsperarTiempoYReuiniciarMano());
+        }
+    }
+
+    IEnumerator EsperarTiempoYReuiniciarMano()
+    {
+        for (int i = 3; i > -1; i--)
+        {
+            ErrorMesageScreen.text = "Mano invalida, cambiando mano  " + i + "...";
+            ErrorMesageScreenSombra.text = "Mano invalida, cambiando mano  " + i + "...";
+            yield return new WaitForSeconds(1);
+        }
+
+        ErrorMesageScreen.gameObject.SetActive(false);
+        ErrorMesageScreenSombra.gameObject.SetActive(false);
+
+        for (int i = 0; i < hand_cards.Count; i++)
+        {
+            used_deck_cards.Add(hand_cards.Last());
+        }
+
+        hand_cards.Clear();
+
+        RobarCartas();
+        ResetearYAjustarMano3D();
+        ComprobarSiLaManoEsValida();
+    }
+
+
+    public void ResetearYAjustarMano3D()
+    {
         Game_System.instance.hand.ResetearCartas3D();
         Game_System.instance.hand.ReinstanciarCartas();
 
@@ -379,13 +457,13 @@ public class Deck_System : MonoBehaviour
             if (Calculos.Count < 1)
             {
                 message = ListNumValue + " " + ListNumCoinType.displayName + " Coin " + " = " + ListNumValue;
-                Puntuacion = ListNumValue;
+                Puntuacion += ListNumValue;
                 ShowMessageTurn(message);
             }
             else
             {
                 message = message + " = " + restult;
-                Puntuacion = restult;
+                Puntuacion += restult;
                 ActualizarPantallaPuntos();
                 ShowMessageTurn(message);
             }
@@ -401,7 +479,11 @@ public class Deck_System : MonoBehaviour
 
     public void IniciarTurno()
     {
-        StartCoroutine(ExecuteTurn());
+        if(canPlay == true)
+        {
+            StartCoroutine(ExecuteTurn());
+        }
+        
     }
 
     public void JugarMano()
@@ -433,13 +515,13 @@ public class Deck_System : MonoBehaviour
             if(Calculos.Count < 1)
             {
                 message = ListNumValue + " " + ListNumCoinType.displayName + " Coin " + " = " + ListNumValue;
-                Puntuacion = ListNumValue;
+                Puntuacion += ListNumValue;
                 ShowMessageTurn(message);
             }
             else
             {
                 message = message + " = " + restult;
-                Puntuacion = restult;
+                Puntuacion += restult;
                 ShowMessageTurn(message);
             }
            
