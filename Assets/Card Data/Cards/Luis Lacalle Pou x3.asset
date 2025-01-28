@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Luis Lacalle Poux3
   displayName: Luis Lacalle Pou
-  description: "Luis Lacalle Pou usa la austeridad selectiva, demostrando que incluso
-    las medidas m\xE1s peque\xF1as pueden generar impacto."
+  description: "Luis Lacalle Pou genera exportaciones hasta a otros planetas, la
+    econom\xEDa est\xE1 salvada..."
   cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: 232c43d307b61104c8117aa3f0254099, type: 2}

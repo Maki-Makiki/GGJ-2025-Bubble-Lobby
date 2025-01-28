@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Lali x3
   displayName: Lali
-  description: "Lali Esp\xF3sito al ritmo de su \xFAltimo \xE9xito genera pol\xE9mica
-    e impacto a nivel LatinoAmericano."
+  description: "Lali Esp\xF3sito al ritmo de su \xFAltimo \xE9xito hasta los chinos
+    la aman!"
   cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: e2db7aa6f3b484d4d8ed3a54492dbfd8, type: 2}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Khalid A. Al-Falih x4
   displayName: Khalid A. Al-Falih
-  description: "Khalid A. Al-Falih hace una inversi\xF3n petrolera multimillonaria"
+  description: "Khalid A. Al-Falih hace una inversi\xF3n petrolera Billonaria!!!"
   cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: 6f1c4615346ff8841b1ea49d543811c8, type: 2}

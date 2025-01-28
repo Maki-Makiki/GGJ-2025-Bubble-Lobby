@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Real_Coin_4
   m_EditorClassIdentifier: 
   displayName: Real Coin 4
-  description: Real Coin x2
+  description: Real Coin +4
   MultyValue: 04000000
   AfectedNumbers: 
   AfectedCoins:

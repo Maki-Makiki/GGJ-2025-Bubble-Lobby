@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Huan_1
   displayName: Huan
-  description: "Jen-Hsun Huang utiliza su 'Optimizaci\xF3n GPU' para descartar una
-    carta de tu elecci\xF3n y procesar dos nuevas del mazo a la velocidad de la luz."
+  description: "Jen-Hsun Huang utiliza su 'Optimizaci\xF3n GPU' aumentar el valor
+    de las tech..."
   cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: 6f1c4615346ff8841b1ea49d543811c8, type: 2}

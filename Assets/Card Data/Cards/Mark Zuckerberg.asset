@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Mark Zuckerberg
   displayName: Mark Zuckerberg
-  description: "\xBFQu\xE9 est\xE1s pensando?"
+  description: "Mark Lanza un nuevo casco de VR que hace que todos sientan lo que
+    es ser un robot y es un \xE9xito...!"
   cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: 634db67a434b2a641805e77c83ab3d40, type: 2}

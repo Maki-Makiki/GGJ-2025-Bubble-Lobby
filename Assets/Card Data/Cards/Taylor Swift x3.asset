@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Taylor Swift x3
   displayName: 'Taylor Swift '
-  description: "Taylor Swift y su The Eras Tour hacen crecer la enconom\xEDa local
-    e internacional."
+  description: "Taylor Swift se vulve el \xE9xito del momento y crecen sus ganancias..."
   cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: 634db67a434b2a641805e77c83ab3d40, type: 2}

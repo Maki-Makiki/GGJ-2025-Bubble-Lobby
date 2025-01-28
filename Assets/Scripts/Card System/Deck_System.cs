@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Deck_System : MonoBehaviour
 {
@@ -14,9 +15,11 @@ public class Deck_System : MonoBehaviour
     public string textoAMostrar = "";
     public TMP_Text textoAnio;
     public int turno = 1994;
+    public int AnioFin = 1994;
     public int turnos = 11;
 
     public int Puntuacion = 0;
+    public int PuntuacionMulty = 10000;
 
     public int actualNumeredCards = 0;
     public int MaxNumeredCards = 3;
@@ -48,33 +51,62 @@ public class Deck_System : MonoBehaviour
     public TMP_Text textoCartasUsables;
     public TMP_Text textoCartasUsablesSombra;
 
-
     public TMP_Text textoPuntos;
     public TMP_Text textoPuntosSombra;
 
     public TMP_Text ErrorMesageScreen;
     public TMP_Text ErrorMesageScreenSombra;
 
+    public TMP_Text textoFinal;
+    public TMP_Text textoFinalSombra;
+
+    public ParticleSystem monedas;
+    public ParticleSystem billetes;
+    public Button botonJugarCartas;
+
+    public Animator animator;
+
+    public void FinPartida()
+    {
+        hand_cards.Clear();
+        Game_System.instance.hand.ResetearCartas3D();
+        botonJugarCartas.interactable = false;
+
+        animator.SetTrigger("FinPartida");
+        textoFinal.text = "<u>Dinero</u> \n$" + Puntuacion* PuntuacionMulty + "\n\nFin de la partida \n\nAño " + AnioFin + " la burbuja económica explotó";
+        textoFinalSombra.text = "<u>Dinero</u> \n$" + Puntuacion * PuntuacionMulty + "\n\nFin de la partida \n\nAño " + AnioFin + " la burbuja económica explotó";
+
+        monedas.Play();
+        billetes.Play();
+    } 
+
     public void RobarCartas()
     {
-
-        int cartasQueFaltan = HandTargetCards - hand_cards.Count;
-
-        for (int i = 0; i < cartasQueFaltan; i++)
+        if (turnos == 0)
         {
-            if(deck_cards.Count == 0)
-            {
-                RellenarMazoYBarajar();
+            FinPartida();
+        }
+        else
+        {
+            int cartasQueFaltan = HandTargetCards - hand_cards.Count;
 
+            for (int i = 0; i < cartasQueFaltan; i++)
+            {
+                if (deck_cards.Count == 0)
+                {
+                    RellenarMazoYBarajar();
+
+                }
+
+                card_data nuevaCartaRobada = deck_cards.Last();
+                hand_cards.Add(nuevaCartaRobada);
+                deck_cards.RemoveAt(deck_cards.Count - 1);
             }
 
-            card_data nuevaCartaRobada = deck_cards.Last();
-            hand_cards.Add(nuevaCartaRobada);
-            deck_cards.RemoveAt(deck_cards.Count-1);
+            ResetearYAjustarMano3D();
+            ComprobarSiLaManoEsValida();
         }
-
-        ResetearYAjustarMano3D();
-        ComprobarSiLaManoEsValida();
+        
     }
 
     public void RellenarMazoYBarajar()
@@ -150,15 +182,22 @@ public class Deck_System : MonoBehaviour
 
     public void AvanzarTurno()
     {
-        Debug.Log("AvanzarTurno()");
-        turnos -= 1;
-        turno += 1;
-        textoAMostrar = textoBase;
-        textoAMostrar = textoAMostrar.Replace("[anio]", turno.ToString());
-        textoAMostrar = textoAMostrar.Replace("[faltan] ", turnos.ToString());
-        textoAnio.text = textoAMostrar;
-
-        ActualizarPantallaPuntos();
+        if(turnos == 0)
+        {
+            FinPartida();
+        }
+        else
+        {
+            Debug.Log("AvanzarTurno()");
+            turnos -= 1;
+            turno += 1;
+            textoAMostrar = textoBase;
+            textoAMostrar = textoAMostrar.Replace("[anio]", turno.ToString());
+            textoAMostrar = textoAMostrar.Replace("[faltan] ", turnos.ToString());
+            textoAnio.text = textoAMostrar;
+            ActualizarPantallaCartasUsables();
+            ActualizarPantallaPuntos();
+        }
     }
 
     internal void AgregarCartaMano(card_data card_Data)
@@ -235,13 +274,13 @@ public class Deck_System : MonoBehaviour
                                     else
                                     {
                                         //Debug.Log("tienen que ser consecutivas");
-                                        ErrorSound("Los n�meros no son consecutivos y del mismo tipo");
+                                        ErrorSound("Los números no son consecutivos y del mismo tipo");
                                     }
 
                                 }
                                 else
                                 {
-                                    ErrorSound("Los n�meros no son consecutivos y del mismo tipo ni igual n�mero");
+                                    ErrorSound("Los números no son consecutivos y del mismo tipo ni igual n�mero");
                                 }
                             }
 
@@ -318,7 +357,7 @@ public class Deck_System : MonoBehaviour
         {
             if (actualNumeredCards >= MaxNumeredCards)
             {
-                ErrorSound("No se pueden marcar m�s de " + MaxNumeredCards + " Cartas numeradas");
+                ErrorSound("No se pueden marcar más de " + MaxNumeredCards + " Cartas numeradas");
                 return;
             }
             else
@@ -331,7 +370,7 @@ public class Deck_System : MonoBehaviour
         {
             if (actualEfectCards >= MaxEfectCards)
             {
-                ErrorSound("No se pueden marcar m�s de " + MaxEfectCards + " Cartas de efecto");
+                ErrorSound("No se pueden marcar más de " + MaxEfectCards + " Cartas de efecto");
                 return;
             }
             else
@@ -360,8 +399,9 @@ public class Deck_System : MonoBehaviour
     {
         int cartasQueQuedanRecursos = (MaxNumeredCards - actualNumeredCards);
         int cartasQueQuedanEfectos = (MaxEfectCards - actualEfectCards);
-        string textoBaseUsables = "<u>Dinero</u>\n $" + (Puntuacion*100) + "\nAño " + turno + "\n Explota en 2005";
-         
+        string textoBaseUsables = "<u>Dinero</u>\n $" + (Puntuacion * PuntuacionMulty) + "\nAño " + turno + "\n Explota en " + AnioFin;
+
+
         textoPuntos.text = textoBaseUsables;
         textoPuntosSombra.text = textoBaseUsables;
     }
@@ -387,8 +427,9 @@ public class Deck_System : MonoBehaviour
     private void Start()
     {
         Game_System.SetSingletone(this);
-
-
+        monedas.Stop();
+        billetes.Stop();
+        AnioFin = turno + turnos;
     }
 
     public void IniciarPartida()
@@ -479,7 +520,7 @@ public class Deck_System : MonoBehaviour
 
     public void IniciarTurno()
     {
-        if(canPlay == true)
+        if(canPlay == true && hand_cards.Count != 0)
         {
             StartCoroutine(ExecuteTurn());
         }

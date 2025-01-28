@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Vladimir Putin x3
   displayName: Vladimir Putin
-  description: "Vladimir Putin ejecuta un estrategia energ\xE9tica, demostrando que
-    con el control adecuado de los recursos, \xA1el poder se amplifica!"
+  description: Vladimir Putin ejecuta un estrategia definitiva, hecharle la culpa
+    a otros de ser los malos, nunca falla...!
   cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: 6f1c4615346ff8841b1ea49d543811c8, type: 2}

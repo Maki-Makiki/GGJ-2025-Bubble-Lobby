@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Elon Musk x3
   displayName: Elon Musk
-  description: Elon Apoya una nueva Techcoin que se va a ir "To the moon"...
+  description: Elon Apoya millones de una nueva Techcoin que se va a ir "To the moon"...
   cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: f6c5f4767df099d4cb7a2cde63ca2130, type: 2}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Eco_Coin_3
   m_EditorClassIdentifier: 
   displayName: Eco Coin 3
-  description: Eco Coin x3
+  description: Eco Coin +3
   MultyValue: 03000000
   AfectedNumbers: 
   AfectedCoins:

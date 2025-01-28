@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Oil_Coin_5
   m_EditorClassIdentifier: 
   displayName: Oil Coin 5
-  description: Oil Coin x5
+  description: Oil Coin +5
   MultyValue: 05000000
   AfectedNumbers: 
   AfectedCoins:

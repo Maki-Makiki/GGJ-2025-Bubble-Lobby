@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: Rockefeller x3
   displayName: Rockefeller
-  description: Rockefeller, utiliza su influencia para controlar el mercado.
+  description: Rockefeller, decide que es mas facil comprar el mercado que ganar
+    compitiendo...
   cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: 634db67a434b2a641805e77c83ab3d40, type: 2}

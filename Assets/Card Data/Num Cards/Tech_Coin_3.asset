@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tech_Coin_3
   m_EditorClassIdentifier: 
   displayName: Tech Coin 3
-  description: Tech Coin x3
+  description: Tech Coin +3
   MultyValue: 03000000
   AfectedNumbers: 
   AfectedCoins:

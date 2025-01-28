@@ -16,11 +16,11 @@ MonoBehaviour:
   displayName: Mr. Beast
   description: "Hoy es tu d\xEDa de suerte: llamaste la atenci\xF3n de Mr. Beast.\r\nM\xE1s
     te vale que sepas dar un buen esp\xE9ctaculo. "
-  cardType: 2
+  cardType: 1
   card_Subtypes:
   - {fileID: 11400000, guid: 634db67a434b2a641805e77c83ab3d40, type: 2}
   - {fileID: 11400000, guid: c3dde1452d060f44993f6ac68ff370f6, type: 2}
   card_Effects:
-  - {fileID: 11400000, guid: 3d666fcff99c60b45bbfb09a8a57784b, type: 2}
+  - {fileID: 11400000, guid: d595783ab8e53514290737325c33e728, type: 2}
   card_InstantEffects: []
   card_Image: {fileID: 2800000, guid: b940ac54fa8f33a4aa6481503132f8ae, type: 3}
